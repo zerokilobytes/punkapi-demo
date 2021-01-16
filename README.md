@@ -12,7 +12,6 @@ https://www.npmjs.com/package/memory-cache
 
 - [API Documentation](#api-documentation)
 - [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
 - [Commands](#commands)
 
 
