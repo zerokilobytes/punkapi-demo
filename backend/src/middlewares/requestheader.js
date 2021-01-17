@@ -5,7 +5,8 @@ const RequestLog = require('../models/requestlog.model');
 
 
 /**
- * Catch 404 and forward to error handler
+ * Intercept all requests made to your rest API and verifies that the request 
+ * has a 'x-user' header parameter containing a valid formatted email address
  * @public
  */
 exports.validate = (req, res, next) => {
