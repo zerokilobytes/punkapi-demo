@@ -1,5 +1,7 @@
 # RESTFul API using Express.js on Node.js
 
+The back end and front end node applications were placed in the same repository for easy demonstration.
+
 Punk API documentation:
 https://punkapi.com/documentation/v2 nosql
 NPM module:
@@ -18,6 +20,7 @@ https://www.npmjs.com/package/memory-cache
 ## API Documentation
 
 The api can be visualized using Swagger UI on the local environment be going to `http://localhost:3000/api/docs` in your browser. 
+The Vue.js front end can be viewed by going to http://localhost:8080/.
 
 ### API Endpoints
 
@@ -39,7 +42,13 @@ PORT=3000
 
 ## Commands
 
-Running backend:
+Running Back-end:
+
+```bash
+yarn start
+```
+
+Running Front-end:
 
 ```bash
 yarn start
