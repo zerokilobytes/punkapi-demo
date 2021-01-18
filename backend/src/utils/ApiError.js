@@ -1,3 +1,6 @@
+/**
+ * API error class
+ */
 class ApiError extends Error {
   constructor(statusCode, message, stack = '') {
     super();

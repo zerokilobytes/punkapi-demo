@@ -15,6 +15,7 @@ https://www.npmjs.com/package/memory-cache
 - [API Documentation](#api-documentation)
 - [Environment Variables](#environment-variables)
 - [Commands](#commands)
+- [Screenshots](#screenshots)
 
 
 ## API Documentation
@@ -46,15 +47,22 @@ Running Back-end:
 ```bash
 yarn start
 ```
+```bash
+npm run test
+```
+
 
 Running Front-end:
 
 ```bash
 yarn start
 ```
+```bash
+npm run test:unit
+```
 
 
-## Screen shots
+## Screenshots
 ![home-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/home-page.png)
 ![rate-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)
 ![swagger](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)

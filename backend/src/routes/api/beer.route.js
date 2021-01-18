@@ -1,10 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-
 const fetch = require('node-fetch');
 var _ = require("underscore");
 const cache = require('memory-cache');
+const validator = require('validator');
+const { check, validationResult } = require('express-validator');
 
 const BeerRating = require('../../models/beerrating.model');
 const MemoryCacheHelper = require('../../utils/MemoryCacheHelper');
@@ -27,8 +28,10 @@ router.post('/', function (req, res, next) {
     const nameQuery = req.body.name.toLowerCase();
     var url = 'https://api.punkapi.com/v2/beers';
 
+    //Gets cache data
     var cacheData = MemoryCacheHelper.read(nameQuery);
 
+    //Checks if cache is available and fetches data from punkapi if no cach data is available
     if (cacheData) {
         res.send(cacheData);
     } else {
@@ -47,6 +50,7 @@ router.post('/', function (req, res, next) {
                     });
                 }
 
+                //Saves the results of the request
                 MemoryCacheHelper.save(nameQuery, response);
                 res.send(response);
             })
@@ -79,15 +83,24 @@ router.post('/', function (req, res, next) {
 router.post('/add-rating/:id', function (req, res, next) {
     const idParam = req.body.id;
 
+    //Gets request data
     const requestData = JSON.parse(JSON.stringify(req.body));
     const ratingParam = requestData.rating;
     const commentParam = requestData.comment;
 
-    console.log(req.params.id);
+    //Validate user inputs
+    if (!validator.isInt(ratingParam, { min: 1, max: 5 })) {
+        res.status(422).json({ errors: ["Rating is invalid"] })
+    }
+    if (validator.isEmpty(commentParam, { ignore_whitespace: true })) {
+        res.status(422).json({ errors: ["Comment is required"] })
+    }
 
+    //Inserts beer into database
     var beerRating = new BeerRating();
     beerRating.insert({ id: idParam, rating: ratingParam, comment: commentParam });
 
+    //Sends response
     res.send('Beer rating added');
 });
 
