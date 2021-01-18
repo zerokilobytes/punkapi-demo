@@ -44,7 +44,7 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-app.use('/api',requestheader.validate);
+app.use('/api/beer',requestheader.validate);
 
 
 // api routes
