@@ -65,7 +65,7 @@ npm run test:unit
 ## Screenshots
 ![home-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/home-page.png)
 ![rate-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)
-![swagger](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)
+![swagger](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/swagger.png)
 
 
 ## License
