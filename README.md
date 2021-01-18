@@ -53,6 +53,13 @@ Running Front-end:
 yarn start
 ```
 
+
+## Screen shots
+![home-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/home-page.png)
+![rate-page](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)
+![swagger](https://github.com/zerokilobytes/punkapi-demo/blob/master/screenshots/rate-page.png)
+
+
 ## License
 
 [No License]
