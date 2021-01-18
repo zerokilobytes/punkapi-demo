@@ -18,7 +18,7 @@
             type="search"
             placeholder="Search Beer"
             aria-describedby="button-addon2"
-            class="form-control border-0 bg-light"
+            class="form-control border-0 bg-light search-box"
           />
         </div>
       </div>
@@ -26,8 +26,9 @@
 
     <div v-for="beer in filteredItems" :key="beer.id" class="row mb-5">
       <div class="col-lg-8 mx-auto">
-        <h5 class="font-weight-light mb-4 font-italic">{{ beer.name }}</h5>
+       
         <div class="bg-white p-5 rounded shadow">
+           <h2 class="font-weight-light mb-4 font-italic"><strong>{{ beer.name }}</strong></h2>
           <h5>Description</h5>
           <p>{{ beer.description }}</p>
           <h5>Food Pairings</h5>

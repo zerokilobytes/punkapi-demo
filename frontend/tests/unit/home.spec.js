@@ -1,25 +1,63 @@
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Home from '@/views/Home.vue'
+import Vuex from 'vuex';
+
+let wrapper;
+let store;
+let actions;
+let mutations;
+let state;
+const localVue = createLocalVue();
+localVue.use(Vuex);
+
+beforeEach(() => {
+  actions = {
+
+  };
+  mutations = {
+
+  };
+  state = {
+    key: {}
+  };
+  store = new Vuex.Store({
+    actions,
+    mutations,
+    state,
+  });
+
+  wrapper = mount(Home, {
+    propsData: {},
+    mocks: {},
+    stubs: {},
+    methods: {},
+  });
+});
+
+afterEach(() => {
+  wrapper.destroy();
+});
+
+describe('Home', () => {
+  test('is a Vue instance', () => {
+    expect(wrapper.isVueInstance).toBeTruthy();
+  });
+});
 
 describe('Home', () => {
   it('renders the correct page information', () => {
-    const wrapper = mount(Home, {
-      data() {
-        return {
-          message: 'Punk API Demo',
-          username: ''
-        }
-      }
-    })
-
-    // see if the message renders
+    // see if the title renders
     expect(wrapper.find('.display-4').text()).toEqual('Punk API Demo')
-
-    // assert the error is rendered
-    //expect(wrapper.find('.error').exists()).toBeTruthy()
-
-    // update the `username` and assert error is no longer rendered
-    //wrapper.setData({ username: 'Lachlan' })
-    //expect(wrapper.find('.error').exists()).toBeFalsy()
   })
+})
+
+
+
+test('Type a value into the search input', async () => {
+  const wrapper = mount(Home)
+  const input = wrapper.find('input')
+
+  await input.setValue('Buzz')
+
+  expect(input.element.value).toBe('Buzz')
 })

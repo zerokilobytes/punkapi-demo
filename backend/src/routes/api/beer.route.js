@@ -7,6 +7,7 @@ const cache = require('memory-cache');
 const validator = require('validator');
 const { check, validationResult } = require('express-validator');
 
+const ApiError = require('../../utils/ApiError');
 const BeerRating = require('../../models/beerrating.model');
 const MemoryCacheHelper = require('../../utils/MemoryCacheHelper');
 
@@ -81,19 +82,24 @@ router.post('/', function (req, res, next) {
  *               type: string
  */
 router.post('/add-rating/:id', function (req, res, next) {
-    const idParam = req.body.id;
+    const idParam = req.params.id.toString();
+
+    console.log(idParam);
 
     //Gets request data
     const requestData = JSON.parse(JSON.stringify(req.body));
-    const ratingParam = requestData.rating;
-    const commentParam = requestData.comment;
+    const ratingParam = requestData.rating.toString();
+    const commentParam = requestData.comment.toString();
 
     //Validate user inputs
+    if (!validator.isInt(idParam, { min: 1 })) {
+        res.status(422).json(new ApiError(400, 'Beer id not invalid'))
+    }
     if (!validator.isInt(ratingParam, { min: 1, max: 5 })) {
-        res.status(422).json({ errors: ["Rating is invalid"] })
+        res.status(422).json(new ApiError(400, 'Rating is invalid'))
     }
     if (validator.isEmpty(commentParam, { ignore_whitespace: true })) {
-        res.status(422).json({ errors: ["Comment is required"] })
+        res.status(422).json(new ApiError(400, 'Comment is required'))
     }
 
     //Inserts beer into database

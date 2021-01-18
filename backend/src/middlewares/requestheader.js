@@ -15,7 +15,7 @@ const RequestLog = require('../models/requestlog.model');
 exports.validate = (req, res, next) => {
     var xuserParam = req.headers['x-user'];
     var requestLog = new RequestLog();
-    
+
     requestLog.insert({ user: xuserParam, request_datails: req.body });
 
     if (!xuserParam || !validator.isEmail(xuserParam)) {

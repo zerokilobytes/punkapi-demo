@@ -1,5 +1,5 @@
 <template>
-  <div class="Home">
+  <div class="Rate">
     <div class="row py-5">
       <div class="col-lg-9 mx-auto text-center">
         <h1 class="display-4">Punk API Demo</h1>
@@ -10,9 +10,7 @@
 
     <div class="row mb-5">
       <div class="col-lg-8 mx-auto">
-        <h5 class="font-weight-light mb-4 font-italic">
-          Rate {{ this.$route.params.beer }}
-        </h5>
+        <h5 class="font-weight-light mb-4 font-italic">Rate {{ beer }}</h5>
         <div class="bg-white p-5 rounded shadow">
           <form action="">
             <div class="form-group">
@@ -87,8 +85,29 @@
                 />
                 <div class="number-circle">&#9733;</div>
               </label>
+               <label class="btn btn-primary d-none">
+                <input
+                  type="radio"
+                  name="rating"
+                  id="option6"
+                  autocomplete="off"
+                  v-model="rating"
+                  v-on:change="setRating($event, 5)"
+                />
+                <div class="number-circle">&#9733;</div>
+              </label>
             </div>
             <p></p>
+            <p></p>
+            <div
+              v-if="error"
+              class="alert alert-danger alert-dismissible fade show"
+            >
+              <strong>Error!</strong> {{ error }}
+              <span type="button" class="close" data-dismiss="alert">
+                &times;
+              </span>
+            </div>
             <button
               v-on:click="submit($event)"
               class="btn btn-secondary"
@@ -108,12 +127,14 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    beer: "",
     rating: null,
     comment: "",
     isValid: false,
+    error: null,
   }),
   created() {
-    console.log(this.$route.params);
+    this.beer = this.$route.params.beer;
   },
   methods: {
     submit(event) {
@@ -138,10 +159,11 @@ export default {
         )
         .then((res) => {
           console.log(res.data);
+          this.error = null;
           this.$router.push("/");
         })
         .catch((err) => {
-          console.log(err);
+          this.error = "Request Failed";
         });
     },
     setRating(event, rating) {
