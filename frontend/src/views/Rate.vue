@@ -18,6 +18,7 @@
             <div class="form-group">
               <label for="comment">Comment</label>
               <textarea
+                @keyup="validate()"
                 v-model="comment"
                 class="form-control"
                 id="comment"
@@ -123,13 +124,18 @@ export default {
         },
       };
 
-      const params = new URLSearchParams();
-      params.append("id", this.$route.params.id);
-      params.append("rating", this.rating);
-      params.append("comment", this.comment);
+      let id = this.$route.params.id;
+      const params = {
+        rating: this.rating,
+        comment: this.comment,
+      };
 
       axios
-        .post("http://localhost:3000/api/beer/add-rating", params, axiosConfig)
+        .post(
+          `http://localhost:3000/api/beer/add-rating/${id}`,
+          params,
+          axiosConfig
+        )
         .then((res) => {
           console.log(res.data);
           this.$router.push("/");
@@ -139,14 +145,17 @@ export default {
         });
     },
     setRating(event, rating) {
-      //this.$refs.ratingContainer.children.classList.add("active");
       this.$refs.ratingContainer.children.forEach((child) =>
         child.classList.remove("selected")
       );
       event.target.parentElement.classList.add("selected");
       this.rating = rating;
-      this.isValid = true;
-      console.log("setRating > " + rating);
+
+      //console.log("setRating > " + rating);
+      this.validate();
+    },
+    validate() {
+      this.isValid = this.rating && this.comment.trim();
     },
   },
 };

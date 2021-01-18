@@ -28,32 +28,31 @@ router.post('/', function (req, res, next) {
     var url = 'https://api.punkapi.com/v2/beers';
 
     var cacheData = MemoryCacheHelper.read(nameQuery);
-    //console.log(cacheData);
+
     if (cacheData) {
         res.send(cacheData);
     } else {
         fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            var response = [];
-            var beers = data.filter(function (i) {
-                return i.name.toLowerCase().startsWith(nameQuery);
-            });
-
-            //console.log(beers);
-            for (beer of beers) {
-                response.push({
-                    id: beer.id, name: beer.name, description: beer.description,
-                    first_brewed: beer.first_brewed, food_pairing: beer.food_pairing
+            .then(res => res.json())
+            .then(data => {
+                var response = [];
+                var beers = data.filter(function (i) {
+                    return i.name.toLowerCase().startsWith(nameQuery);
                 });
-            }
 
-            MemoryCacheHelper.save(nameQuery, response);
-            res.send(response);
-        })
-        .catch(err => {
-            res.send(err);
-        });
+                for (beer of beers) {
+                    response.push({
+                        id: beer.id, name: beer.name, description: beer.description,
+                        first_brewed: beer.first_brewed, food_pairing: beer.food_pairing
+                    });
+                }
+
+                MemoryCacheHelper.save(nameQuery, response);
+                res.send(response);
+            })
+            .catch(err => {
+                res.send(err);
+            });
     }
 });
 
@@ -65,15 +64,26 @@ router.post('/', function (req, res, next) {
  *    parameters:
  *      - name: id
  *        in: query
- *        description: Name of beer
+ *        description: Beer id
  *        required: true
  *        type: string
  *        x-example: Buzz
+ *    requestBody:
+ *        description: JSON request body which includes rating and comments 
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *               type: string
  */
-router.post('/add-rating', function (req, res, next) {
+router.post('/add-rating/:id', function (req, res, next) {
     const idParam = req.body.id;
-    const ratingParam = req.body.rating;
-    const commentParam = req.body.comment;
+
+    const requestData = JSON.parse(JSON.stringify(req.body));
+    const ratingParam = requestData.rating;
+    const commentParam = requestData.comment;
+
+    console.log(req.params.id);
 
     var beerRating = new BeerRating();
     beerRating.insert({ id: idParam, rating: ratingParam, comment: commentParam });
