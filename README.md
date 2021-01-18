@@ -20,7 +20,7 @@ https://www.npmjs.com/package/memory-cache
 ## API Documentation
 
 The api can be visualized using Swagger UI on the local environment be going to `http://localhost:3000/api/docs` in your browser. 
-The Vue.js front end can be viewed by going to http://localhost:8080/.
+The Vue.js front end can be viewed by going to 'http://localhost:8080/'.
 
 ### API Endpoints
 

@@ -2,17 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import Home from '@/views/Home.vue'
-
-import Default from '@/components/Default.vue'
+import Rate from '@/views/Rate.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '*',
-    name: 'Default',
-    component: Default,
-  }, {
+    name: 'Home',
+    component: Home,
+  }, 
+  {
     path: '/',
     name: 'home',
     component: Home,
@@ -20,6 +20,14 @@ const routes = [
       auth: false,
     },
   },
+  {
+    path: '/rate/:id',
+    name: 'rate',
+    component: Rate,
+    meta: {
+      auth: false,
+    },
+  }
 ]
 
 const router = new VueRouter({

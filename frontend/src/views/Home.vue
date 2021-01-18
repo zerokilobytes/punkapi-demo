@@ -12,29 +12,39 @@
       <div class="col-lg-8 mx-auto">
         <h5 class="font-weight-normal mb-4 font-italic">Search for beer</h5>
         <div class="bg-white p-3 rounded shadow">
-           <input
-                  v-model="nameSearch"
-                  @keyup="getBeers()"
-                  type="search"
-                  placeholder="Search Beer"
-                  aria-describedby="button-addon2"
-                  class="form-control border-0 bg-light"
-                />
+          <input
+            v-model="nameSearch"
+            @keyup="getBeers()"
+            type="search"
+            placeholder="Search Beer"
+            aria-describedby="button-addon2"
+            class="form-control border-0 bg-light"
+          />
         </div>
       </div>
     </div>
 
     <div v-for="beer in filteredItems" :key="beer.id" class="row mb-5">
-      <div class="col-lg-8 mx-auto ">
+      <div class="col-lg-8 mx-auto">
         <h5 class="font-weight-light mb-4 font-italic">{{ beer.name }}</h5>
-        <div class="bg-white p-5 rounded shadow">  
-           <h5>Description</h5>
+        <div class="bg-white p-5 rounded shadow">
+          <h5>Description</h5>
           <p>{{ beer.description }}</p>
           <h5>Food Pairings</h5>
           <ul class="px-3 list-disc">
-             <li v-for="pair in beer.food_pairing" :key="pair.food_pairing" >{{pair}} </li>
+            <li v-for="pair in beer.food_pairing" :key="pair.food_pairing">
+              {{ pair }}
+            </li>
           </ul>
-          <i>First Brewed {{ beer.first_brewed }}</i>
+          <p>
+            <i>First Brewed {{ beer.first_brewed }}</i>
+          </p>
+          <router-link
+            :to="{ name: 'rate', params: { id: beer.id, beer: beer.name } }"
+            tag="button"
+            class="btn btn-secondary"
+            >Add Rating</router-link
+          >
         </div>
       </div>
     </div>
